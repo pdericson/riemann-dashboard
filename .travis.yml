@@ -4,7 +4,8 @@ elixir: 1.5.2
 
 script:
   - mix test
-  - sed -i "s/verion: .*/version: '${TRAVIS_TAG:-0.0.1}'/" mix.exs
+  - >-
+    sed -i "s/verion: .*/version: '${TRAVIS_TAG:-0.0.1}'/" mix.exs
   - MIX_ENV=prod SECRET_KEY_BASE=`mix phx.gen.secret` mix release
 
 deploy:
