@@ -4,9 +4,13 @@
 
 Riemann Dashboard
 
+Riemann Dashboard is a very basic dashboard that just shows a table of the Riemann index.
+
 ![screenshot](screenshot.png)
 
 ## Getting Started
+
+You can run Riemann Dashboard in a container:
 
 ```
 docker run -e LC_ALL=C.UTF-8 -e PORT=8000 -e RIEMANN_HOST=localhost -e RIEMANN_PORT=5555 -i --net host --rm -t debian:8 /bin/sh -c "\
@@ -17,6 +21,8 @@ dashboard foreground"
 ```
 
 ## Development
+
+This command will prompt you to run `mix deps.get` and `cd assets && npm install` if needed:
 
 ```
 iex -S mix phx.server
