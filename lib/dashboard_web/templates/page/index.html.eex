@@ -1,0 +1,14 @@
+<table id="index" class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>host</th>
+      <th>service</th>
+      <th>state</th>
+      <th>time</th>
+      <th>description</th>
+      <th>tags</th>
+      <th>metric</th>
+      <th>ttl</th>
+  </tr>
+  </thead>
+</table>

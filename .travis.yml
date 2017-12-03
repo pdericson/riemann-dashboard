@@ -1,0 +1,18 @@
+language: elixir
+
+elixir: 1.5.2
+
+script:
+  - mix test
+  - MIX_ENV=prod mix release
+
+deploy:
+  provider: releases
+  api_key:
+    secure: eSOwjqroW6z6KX732W/dCn5ygfQteR2ru+9A5Mi2FNxgsIzTQBwyLI+moVBY8Wf3hv/mKJ1VxRHb8PhRTwfHap4Ttaq8VOOoTH8c+gG0v8gPeXeRYZapQGNumeD89pchBwbuao18ZHnAZdj8gSSVIM0d37sU854UjDznVrMmRBwTF4OowzWpM1atgk4DPtsjdH7sSM3D6z/TqppiVBTmEVWdLIXiZZF38ztACypMTNR/0Z/CHOucfXXS624PhczQzoa00nA6YGCvJAi8aXBsNZKXwBiuPATEgq/5j9NuIU2X7HXaPrrnLHE8B1jy/1EinxZFP9Uhr0nB1M5FXkkr8vpzy3gsk6CM7WYzIl3KuwoTiTgdXZmhzIUciPqYc4jF2diZLazmAGAD7U5+FPQh0TsBk1NRZVvIrp3KKom4uRrCit0OuMpSyRGLZKs36KobhhsMksDDFzBy2niTRiqDshaYpAKj1VUvKJJ2UvM5u/idKIk/LydMDyGVcU4JqefnBD0+fFiRdaDovlVLFmwYFqKFfk+zj5EOs7bHsfSLDxRObIK4OkpUau0QQFCdCnPF9G5MDQe1K02Iikmb2hzJCbjDRRAIQ2IJSo8YOALKe10G/UxgLI74gOlJ0zaDkVGBo7WBFLuM/DsIziBYmkmIxhp26+/acfEPDt8XP2hK3BY=
+  file: _build/prod/rel/dashboard/releases/*/dashboard.tar.gz
+  file_glob: true
+  on:
+    repo: pdericson/riemann-dashboard
+    tags: true
+  skip_cleanup: true
