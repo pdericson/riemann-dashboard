@@ -4,7 +4,6 @@ elixir: 1.5.2
 
 script:
   - mix test
-  - touch config/prod.secret.exs
   - MIX_ENV=prod mix release
 
 deploy:
