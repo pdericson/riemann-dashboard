@@ -8,7 +8,7 @@ before_script:
 script:
   - mix test
   - cd assets && npm install && cd ..
-  - assets/node_modules/brunch/bin/brunch build --production
+  - cd assets && node_modules/brunch/bin/brunch build --production && cd ..
   - >-
     sed -i "s/version: .*/version: \"${TRAVIS_TAG:-0.0.1}\",/" mix.exs
   - MIX_ENV=prod SECRET_KEY_BASE=`mix phx.gen.secret` mix do phoenix.digest, release
