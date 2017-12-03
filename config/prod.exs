@@ -15,6 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 
 # pdericson https://hexdocs.pm/distillery/use-with-phoenix.html
+# pdericson https://hexdocs.pm/phoenix/heroku.html
 
 config :dashboard, DashboardWeb.Endpoint,
   http: [port: {:system, "PORT"}],
@@ -23,6 +24,7 @@ config :dashboard, DashboardWeb.Endpoint,
   server: true,
   root: ".",
   version: Application.spec(:dashboard, :vsn)
+  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -69,7 +71,3 @@ config :riemann, :address,
 #
 #     config :dashboard, DashboardWeb.Endpoint, server: true
 #
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
