@@ -29,8 +29,8 @@ config :logger, level: :info
 
 # Configures Riemann
 config :riemann, :address,
-  host: System.get_env("RIEMANN_HOST"),
-  port: String.to_integer(System.get_env("RIEMANN_PORT"))
+  host: (if System.get_env("RIEMANN_HOST"), do: System.get_env("RIEMANN_HOST"), else: "localhost"),
+  port: String.to_integer(if System.get_env("RIEMANN_PORT"), do: System.get_env("RIEMANN_PORT"), else: "5555")
 
 # ## SSL Support
 #
