@@ -2,11 +2,15 @@ language: elixir
 
 elixir: 1.5.2
 
+before_script:
+  - nvm install 7 && nvm use 7
+
 script:
   - mix test
+  - cd assets && npm install && cd ..
   - >-
     sed -i "s/version: .*/version: \"${TRAVIS_TAG:-0.0.1}\",/" mix.exs
-  - MIX_ENV=prod SECRET_KEY_BASE=`mix phx.gen.secret` mix release
+  - MIX_ENV=prod SECRET_KEY_BASE=`mix phx.gen.secret` mix do phoenix.digest, release
 
 deploy:
   provider: releases
