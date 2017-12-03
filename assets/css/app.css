@@ -1,1 +1,69 @@
 /* This file is for your main application css. */
+
+#index th {
+    border: 0;
+    text-align: center;
+}
+
+#index td {
+    border-bottom: 1px dashed #ccc;
+    border-left: 1px dashed #ccc;
+    border-right: 1px dashed #ccc;
+    border-top: 1px dashed #ccc;
+    padding: 2px;
+}
+
+/* host */
+#index td:nth-child(1) {
+    font-family: monospace;
+    width: 10%;
+}
+
+/* service */
+#index td:nth-child(2) {
+    font-family: monospace;
+    white-space: pre;
+    width: 30%;
+}
+
+/* state */
+#index td:nth-child(3) {
+    font-family: monospace;
+    text-align: center;
+    width: 5%;
+}
+
+/* time */
+#index td:nth-child(4) {
+    font-family: monospace;
+    text-align: center;
+    width: 10%;
+}
+
+/* description */
+#index td:nth-child(5) {
+    font-family: monospace;
+    white-space: pre-wrap;
+    width: 30%;
+}
+
+/* tags */
+#index td:nth-child(6) {
+    font-family: monospace;
+    text-align: center;
+    width: 5%;
+}
+
+/* metrics */
+#index td:nth-child(7) {
+    font-family: monospace;
+    text-align: right;
+    width: 5%;
+}
+
+/* ttl */
+#index td:nth-child(8) {
+    font-family: monospace;
+    text-align: right;
+    width: 5%;
+}

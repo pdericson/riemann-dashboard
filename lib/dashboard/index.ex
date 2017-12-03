@@ -11,7 +11,7 @@ defmodule Dashboard.Index do
 
     DashboardWeb.Endpoint.broadcast! "dashboard:index", "events", %{events: events}
 
-    Process.sleep 1_000
+    Process.sleep 2_000
 
     run()
   end

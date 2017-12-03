@@ -61,7 +61,10 @@ let table = null;
 channel.on("events", payload => {
 
   $(payload.events).each(function(index, event) {
-    event.time = new Date(event.time * 1000)
+    event.time = new Date(event.time * 1000).toLocaleFormat('%H:%M:%S')
+    if (parseFloat(event.metric)) {
+      event.metric = parseFloat(event.metric.toFixed(6))
+    }
   })
 
   if (table === null) {
