@@ -4,6 +4,8 @@
 
 Riemann Dashboard
 
+![screenshot](screenshot.png)
+
 ## Getting Started
 
 ```
