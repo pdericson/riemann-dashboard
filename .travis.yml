@@ -1,19 +1,24 @@
 language: generic
 
 script:
-  - docker build -f Dockerfile.build -t build .
-  - docker run -v $PWD:/mnt -w /mnt build mix deps.get
-  - docker run -v $PWD:/mnt -w /mnt build mix test
-  - docker run -v $PWD:/mnt -w /mnt/assets build sh -c "npm install && node_modules/brunch/bin/brunch b -p"
+  - docker build -f Dockerfile.build-debian-9-2 -t build-debian-9-2 .
+  - docker run -v $PWD:/mnt -w /mnt build-debian-9-2 mix deps.get
+  - docker run -v $PWD:/mnt -w /mnt build-debian-9-2 mix test
+  - docker run -v $PWD:/mnt -w /mnt/assets build-debian-9-2 sh -c "npm install && node_modules/brunch/bin/brunch b -p"
   - >-
     sed -i "s/version: .*/version: \"${TRAVIS_TAG:-0.0.1}\",/" mix.exs
-  - docker run -e MIX_ENV=prod -v $PWD:/mnt -w /mnt build sh -c 'SECRET_KEY_BASE=`mix phx.gen.secret` mix do phoenix.digest, release'
+  - >-
+    docker run -e MIX_ENV=prod -v $PWD:/mnt -w /mnt build-debian-9-2 sh -c 'SECRET_KEY_BASE=`mix phx.gen.secret` mix do phoenix.digest, release &&
+    mv _build/prod/rel/dashboard/releases/*/dashboard.tar.gz dashboard-debian-9-2.tar.gz'
+  - >-
+    docker run -e MIX_ENV=prod -v $PWD:/mnt -w /mnt build-centos-7 sh -c 'rm -rf _build/prod && SECRET_KEY_BASE=`mix phx.gen.secret` mix release &&
+    mv _build/prod/rel/dashboard/releases/*/dashboard.tar.gz dashboard-centos-7.tar.gz'
 
 deploy:
   provider: releases
   api_key:
     secure: eSOwjqroW6z6KX732W/dCn5ygfQteR2ru+9A5Mi2FNxgsIzTQBwyLI+moVBY8Wf3hv/mKJ1VxRHb8PhRTwfHap4Ttaq8VOOoTH8c+gG0v8gPeXeRYZapQGNumeD89pchBwbuao18ZHnAZdj8gSSVIM0d37sU854UjDznVrMmRBwTF4OowzWpM1atgk4DPtsjdH7sSM3D6z/TqppiVBTmEVWdLIXiZZF38ztACypMTNR/0Z/CHOucfXXS624PhczQzoa00nA6YGCvJAi8aXBsNZKXwBiuPATEgq/5j9NuIU2X7HXaPrrnLHE8B1jy/1EinxZFP9Uhr0nB1M5FXkkr8vpzy3gsk6CM7WYzIl3KuwoTiTgdXZmhzIUciPqYc4jF2diZLazmAGAD7U5+FPQh0TsBk1NRZVvIrp3KKom4uRrCit0OuMpSyRGLZKs36KobhhsMksDDFzBy2niTRiqDshaYpAKj1VUvKJJ2UvM5u/idKIk/LydMDyGVcU4JqefnBD0+fFiRdaDovlVLFmwYFqKFfk+zj5EOs7bHsfSLDxRObIK4OkpUau0QQFCdCnPF9G5MDQe1K02Iikmb2hzJCbjDRRAIQ2IJSo8YOALKe10G/UxgLI74gOlJ0zaDkVGBo7WBFLuM/DsIziBYmkmIxhp26+/acfEPDt8XP2hK3BY=
-  file: _build/prod/rel/dashboard/releases/*/dashboard.tar.gz
+  file: dashboard-*.tar.gz
   file_glob: true
   on:
     repo: pdericson/riemann-dashboard
