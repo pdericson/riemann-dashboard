@@ -4,7 +4,7 @@ script:
   - docker build -f Dockerfile.build -t build .
   - docker run -v $PWD:/mnt -w /mnt build mix deps.get
   - docker run -v $PWD:/mnt -w /mnt build mix test
-  - docker run -v $PWD:/mnt -w /mnt/assets sh -c "build npm install && node_modules/brunch/bin/brunch b -p"
+  - docker run -v $PWD:/mnt -w /mnt/assets build sh -c "npm install && node_modules/brunch/bin/brunch b -p"
   - >-
     sed -i "s/version: .*/version: \"${TRAVIS_TAG:-0.0.1}\",/" mix.exs
   - docker run -e MIX_ENV=prod -v $PWD:/mnt -w /mnt build sh -c 'SECRET_KEY_BASE=`mix phx.gen.secret` mix do phoenix.digest, release'
