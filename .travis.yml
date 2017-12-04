@@ -2,6 +2,7 @@ language: generic
 
 script:
   - docker build -f Dockerfile.build -t build .
+  - docker run -v $PWD:/mnt -w /mnt build mix deps.get
   - docker run -v $PWD:/mnt -w /mnt build mix test
   - docker run -v $PWD:/mnt -w /mnt/assets sh -c "build npm install && node_modules/brunch/bin/brunch b -p"
   - >-
