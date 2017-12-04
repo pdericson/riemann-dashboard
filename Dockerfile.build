@@ -21,3 +21,7 @@ ENV HOME=/root LC_ALL=C.UTF-8 USER=root
 RUN mix local.hex --force
 
 RUN mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+
+RUN apt-get install -y erlang-dev erlang-parsetools
+
+RUN mix local.rebar --force
