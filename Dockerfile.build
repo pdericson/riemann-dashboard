@@ -25,3 +25,5 @@ RUN mix archive.install --force https://github.com/phoenixframework/archives/raw
 RUN apt-get install -y erlang-dev erlang-parsetools
 
 RUN mix local.rebar --force
+
+RUN apt-get install -y erlang-eunit
