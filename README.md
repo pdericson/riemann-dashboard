@@ -10,13 +10,23 @@ Riemann Dashboard is a very basic dashboard that just shows a table of the Riema
 
 ## Getting Started
 
-You can run Riemann Dashboard in a container:
+You can run Riemann Dashboard in a container.
+
+Debian 9.2:
 
 ```
 docker run -e LC_ALL=C.UTF-8 -e PORT=8000 -e RIEMANN_HOST=localhost -e RIEMANN_PORT=5555 -i --net host --rm -t debian:9.2 /bin/sh -c "\
 apt-get update && \
 apt-get install --no-install-recommends -y ca-certificates curl && \
-curl -L https://github.com/pdericson/riemann-dashboard/releases/download/0.1.7/dashboard.tar.gz | tar xzf - -C /usr/local && \
+curl -L https://github.com/pdericson/riemann-dashboard/releases/download/0.1.8/dashboard-debian-9-2.tar.gz | tar xzf - -C /usr/local && \
+dashboard foreground"
+```
+
+CentOS 7:
+
+```
+docker run -e LC_ALL=en_US.UTF-8 -e PORT=8000 -e RIEMANN_HOST=localhost -e RIEMANN_PORT=5555 -i --net host --rm -t centos:7 /bin/sh -c "\
+curl -L https://github.com/pdericson/riemann-dashboard/releases/download/0.1.8/dashboard-centos-7.tar.gz | tar xzf - -C /usr/local && \
 dashboard foreground"
 ```
 
