@@ -8,11 +8,11 @@ script:
   - >-
     sed -i "s/version: .*/version: \"${TRAVIS_TAG:-0.0.1}\",/" mix.exs
   - >-
-    docker run -e MIX_ENV=prod -v $PWD:/mnt -w /mnt build-debian-9-2 sh -c 'SECRET_KEY_BASE=`mix phx.gen.secret` mix do phoenix.digest, release &&
+    docker run -e MIX_ENV=prod -v $PWD:/mnt -w /mnt build-debian-9-2 sh -c 'SECRET_KEY_BASE=`SECRET_KEY_BASE=1 mix phx.gen.secret` mix do phoenix.digest, release &&
     mv _build/prod/rel/dashboard/releases/*/dashboard.tar.gz dashboard-debian-9-2.tar.gz'
   - docker build -f Dockerfile.build-centos-7 -t build-centos-7 .
   - >-
-    docker run -e MIX_ENV=prod -v $PWD:/mnt -w /mnt build-centos-7 sh -c 'rm -rf _build/prod && SECRET_KEY_BASE=`mix phx.gen.secret` mix release &&
+    docker run -e MIX_ENV=prod -v $PWD:/mnt -w /mnt build-centos-7 sh -c 'SECRET_KEY_BASE=`SECRET_KEY_BASE=1 mix phx.gen.secret` mix release &&
     mv _build/prod/rel/dashboard/releases/*/dashboard.tar.gz dashboard-centos-7.tar.gz'
 
 deploy:
