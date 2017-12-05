@@ -24,7 +24,8 @@ config :dashboard, DashboardWeb.Endpoint,
   server: true,
   root: ".",
   version: Application.spec(:dashboard, :vsn),
-  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
+  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
+  check_origin: false
 
 # Do not print debug messages in production
 config :logger, level: :info
