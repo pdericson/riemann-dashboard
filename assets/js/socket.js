@@ -61,8 +61,8 @@ let table = null;
 channel.on("events", payload => {
 
   $(payload.events).each(function(index, event) {
-    // pdericson "toLocaleFormat" is a firefox-ism
-    //event.time = new Date(event.time * 1000).toLocaleFormat('%H:%M:%S')
+    // Was: .toLocaleFormat('%H:%M:%S')
+    event.time = (new Date(event.time * 1000)).toString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1')
     if (parseFloat(event.metric)) {
       event.metric = parseFloat(event.metric.toFixed(6))
     }
