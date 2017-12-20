@@ -81,6 +81,36 @@ channel.on("events", payload => {
         {data: 'metric'},
         {data: 'ttl'},
       ],
+      columnDefs: [
+	{
+	  render: function(data, type, row) {
+	    if (data === null || row.state === null) {
+	      return data
+	    } else if (row.state == 'failure' || row.state == 'critical') {
+	      return '<b style="color: #d9534f">' + data + '</b>';
+	    } else {
+	      return data;
+	    }
+	  },
+	  targets: [0, 1, 3, 4, 5, 6, 7],
+	},
+	{
+	  render: function(data, type, row) {
+	    if (data === null) {
+	      return data
+	    } else if (data == 'success' || data == 'ok') {
+	      return '<span class="label label-success">' + data + '</span>';
+	    } else if (data == 'failure' || data == 'critical') {
+	      return '<span class="label label-danger">' + data + '</span>';
+	    } else if (data == 'warning') {
+	      return '<span class="label label-warning">' + data + '</span>';
+	    } else {
+	      return data;
+	    }
+	  },
+	  targets: 2,
+	}
+      ],
       paging: false
     });
 
